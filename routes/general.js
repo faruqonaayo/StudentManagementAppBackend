@@ -38,4 +38,50 @@ router.post(
   generalController.postNewStudent
 );
 
+router.put(
+  "/update/:studentID",
+  [
+    body("firstName")
+      .trim()
+      .custom((value) => {
+        if (value) {
+          if (typeof value !== "string") {
+            throw new Error("First name must be a string");
+          }
+          if (value.length < 2) {
+            throw new Error("First name must be at least 2 characters");
+          }
+        }
+        return true;
+      }),
+    body("lastName")
+      .trim()
+      .custom((value) => {
+        if (value) {
+          if (typeof value !== "string") {
+            throw new Error("Last name must be a string");
+          }
+          if (value.length < 2) {
+            throw new Error("Last name must be at least 2 characters");
+          }
+        }
+        return true;
+      }),
+    body("course")
+      .trim()
+      .custom((value) => {
+        if (value) {
+          if (typeof value !== "string") {
+            throw new Error("Course must be a string");
+          }
+          if (value.length < 2) {
+            throw new Error("Course must be at least 2 characters");
+          }
+        }
+        return true;
+      }),
+  ],
+  generalController.updateStudent
+);
+
 export default router;
